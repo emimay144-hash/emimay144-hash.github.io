@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dog Dash to the Bone</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <div id="game-container"></div>
+
+    <div id="ui-overlay">
+      <div id="hud" class="hidden" aria-live="polite">
+        <div class="hud-item">Level: <span id="hud-level">1</span></div>
+        <div class="hud-item">Progress: <span id="hud-progress">0%</span></div>
+        <div class="hud-item">Speed: <span id="hud-speed">1.0x</span></div>
+      </div>
+
+      <div id="start-screen" class="panel">
+        <h1>Dog Dash to the Bone</h1>
+        <p class="subtitle">Race through the lane course, dodge obstacles, and reach the bone prize!</p>
+        <div class="instructions">
+          <p><strong>Controls:</strong> Left / Right Arrow keys to change lanes</p>
+          <p><strong>Pause:</strong> P or Escape</p>
+          <p>Hits slow you briefly, then you recover. Other animals race alongside you but won't block you.</p>
+        </div>
+        <button id="start-button" type="button">Start Race</button>
+      </div>
+
+      <div id="pause-screen" class="panel hidden">
+        <h2>Paused</h2>
+        <p>Take a breather.</p>
+        <button id="resume-button" type="button">Resume</button>
+        <button id="restart-button-pause" type="button" class="secondary">Restart Level</button>
+      </div>
+
+      <div id="level-complete-screen" class="panel hidden">
+        <h2>Level Complete!</h2>
+        <p id="level-complete-text">You reached the bone prize.</p>
+        <p id="achievement-text" class="achievement"></p>
+        <button id="next-level-button" type="button">Next Level</button>
+      </div>
+
+      <div id="message" class="hidden" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+  <script src="js/constants.js"></script>
+  <script src="js/track.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/obstacles.js"></script>
+  <script src="js/competitors.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
