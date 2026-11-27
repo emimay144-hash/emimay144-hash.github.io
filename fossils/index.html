@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fossil Layers and Mass Extinction Explorer</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="app-header">
+    <div class="header-row">
+      <div>
+        <h1>Fossil Layers and Mass Extinction Explorer</h1>
+        <p class="subtitle">Explore fictional ecosystems, inspect rock layers and fossil diagrams, infer possible extinction boundaries, and test how environmental change can affect survival.</p>
+      </div>
+      <div class="header-actions">
+        <button id="reset-all" type="button" class="reset-prominent">Reset everything</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" class="app-layout">
+    <section class="panel ecosystem-panel" aria-labelledby="ecosystem-heading">
+      <h2 id="ecosystem-heading">1. Choose an ecosystem</h2>
+      <label for="ecosystem-select">Fictional ecosystem</label>
+      <select id="ecosystem-select"></select>
+      <div id="ecosystem-preview" class="ecosystem-preview" aria-live="polite"></div>
+      <p id="ecosystem-description" class="panel-help"></p>
+      <p id="ecosystem-traits" class="panel-help"></p>
+
+      <details class="instructions" open>
+        <summary>Visual student flow</summary>
+        <ol>
+          <li><strong>Choose an ecosystem</strong> from the visual preview and legend.</li>
+          <li><strong>Inspect at least five layers</strong> in the strata stack using diagrams, meters, and annotations.</li>
+          <li><strong>Tap or click between layers</strong> to mark the extinction boundary. Evidence may be clear or span several layers.</li>
+          <li><strong>Try again if needed.</strong> The answer is revealed after five attempts, with an explanation.</li>
+          <li><strong>Set up a simulation</strong> by choosing an environmental factor and adjusting rate and severity.</li>
+          <li><strong>Watch an automatic visualisation</strong>: changing landscape, indicator gauges, and a progress timeline.</li>
+          <li><strong>Compare runs</strong> side by side on the visual comparison board.</li>
+        </ol>
+        <p class="note">All ecosystems, species, and results are fictional and simplified. Fossils are clues; preservation varies and the record is incomplete. Results are temporary and clear when you reset or close the page.</p>
+      </details>
+    </section>
+
+    <section class="panel strata-panel" aria-labelledby="strata-heading">
+      <div class="panel-header">
+        <h2 id="strata-heading">2–3. Inspect strata and mark a boundary</h2>
+        <p class="panel-help">Inspect each layer's annotated diagram and rock sample. Older layers are lower; younger layers are higher. Use the annotations to infer changes in fossil abundance and diversity rather than relying on exact counts.</p>
+      </div>
+
+      <div class="scene-wrap">
+        <h3 id="scene-heading">Rock cross-section</h3>
+        <div id="three-root" class="three-root" aria-label="3D rock cross-section showing layers and fossil shapes"></div>
+        <p class="panel-help scene-fallback-note">If the 3D view is unavailable, use the layer diagrams and boundary buttons below — all essential information is provided there.</p>
+      </div>
+
+      <div class="layer-controls" aria-labelledby="layer-list-heading">
+        <h3 id="layer-list-heading">Visual strata column (oldest at bottom, youngest at top)</h3>
+        <p class="panel-help">Tap a layer card to inspect its diagram and evidence. Use the abundance and diversity meters to compare patterns across layers.</p>
+        <div id="layer-list" class="layer-list strata-stack" role="list"></div>
+      </div>
+
+      <section class="subpanel" aria-labelledby="layer-details-heading">
+        <h3 id="layer-details-heading">Selected layer diagram and annotations</h3>
+        <div id="layer-details" class="layer-details" aria-live="polite"></div>
+      </section>
+
+      <section class="subpanel" aria-labelledby="boundary-heading">
+        <h3 id="boundary-heading">Tap or click the extinction boundary</h3>
+        <p class="panel-help">Use the visual boundary strip: tap between layer cards where the evidence suggests a major change. Markers show your choice, correct answers, and revealed boundaries (with text labels, not colour only). Some boundaries are clear; others may span several layers.</p>
+        <p id="attempt-status" class="attempt-status" aria-live="polite"></p>
+        <div id="boundary-choices" class="boundary-choices boundary-strip" role="group" aria-label="Boundary choices between layers"></div>
+        <div id="boundary-feedback" class="feedback" aria-live="polite"></div>
+      </section>
+    </section>
+
+    <section class="panel sim-panel" aria-labelledby="simulation-heading">
+      <h2 id="simulation-heading">4–5. Environmental change simulation</h2>
+      <p class="panel-help">Choose an environmental factor, adjust how quickly and severely it changes, then watch the automatic visualisation. The same underlying scenario data drives the landscape, indicators, diagrams, and comparisons.</p>
+
+      <div class="control-group">
+        <label for="factor-select">Environmental factor</label>
+        <select id="factor-select"></select>
+        <p id="factor-description" class="panel-help"></p>
+      </div>
+
+      <div class="slider-field">
+        <label for="rate-slider">Rate of change: <span id="rate-value"></span></label>
+        <input id="rate-slider" type="range" min="0" max="100" value="35" step="5">
+        <div class="slider-gauge" aria-hidden="true"><div id="rate-gauge" class="slider-gauge-fill"></div></div>
+        <p id="rate-label" class="setting-label"></p>
+      </div>
+
+      <div class="slider-field">
+        <label for="severity-slider">Severity of change: <span id="severity-value"></span></label>
+        <input id="severity-slider" type="range" min="0" max="100" value="40" step="5">
+        <div class="slider-gauge" aria-hidden="true"><div id="severity-gauge" class="slider-gauge-fill"></div></div>
+        <p id="severity-label" class="setting-label"></p>
+      </div>
+
+      <div class="button-row">
+        <button id="run-simulation" type="button">Run automatic visualisation</button>
+      </div>
+
+      <section class="subpanel" aria-labelledby="viz-heading">
+        <h3 id="viz-heading">Automatic visualisation</h3>
+        <div id="landscape-viz" class="landscape-viz" aria-live="polite"></div>
+        <div id="sim-timeline" class="sim-timeline" aria-live="polite"></div>
+        <div id="indicator-viz" class="indicator-viz" aria-live="polite"></div>
+        <div id="viz-status" class="panel-help" aria-live="polite"></div>
+      </section>
+
+      <section class="subpanel" aria-labelledby="latest-result-heading">
+        <h3 id="latest-result-heading">Latest run: survival and resulting layers</h3>
+        <div id="latest-result" class="latest-result" aria-live="polite"></div>
+      </section>
+    </section>
+
+    <section class="panel compare-panel" aria-labelledby="compare-heading">
+      <h2 id="compare-heading">6. Visual comparison board</h2>
+      <p class="panel-help">Each time you run the simulation, a run card is saved here for side-by-side comparison until you reset or close the page. Compare settings, survival indicators, biodiversity mini graphs, and resulting fossil layer stacks.</p>
+      <div id="run-comparison" class="run-comparison compare-board" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p><strong>Evidence note:</strong> A drop in fossil abundance or diversity can suggest extinction, but preservation varies and the fossil record is incomplete. Ask: what evidence in the diagrams led you to choose a boundary?</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
